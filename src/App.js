@@ -1,7 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 import db from "./sevices/firebase";
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
+import Navbar from './Navbar';
+// const Navbar = require("./components/Navbar")
 
 function App() {
   const [recipes, setRecipes] = useState([]);
@@ -23,8 +25,8 @@ function App() {
 
   return (
     <div className="App">
-      {/* {recipes} */}
-      <header className="App-header">
+      <Navbar />
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -37,7 +39,7 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
     </div>
   );
 }
