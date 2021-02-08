@@ -1,9 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
+import db from "./sevices/firebase";
+import {useState, useEffect} from "react";
 
 function App() {
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+  const data = db.ref("recipes").once('value',function(snapshot){
+    snapshot.forEach((childSnapshot) => {
+      const childKey = childSnapshot.key;
+      const childData = childSnapshot.val();
+      console.log("key", childKey, "data", childData);
+    })
+  })
+    // setRecipes(data);
+    // console.log(data.child);
+  
+  },[])
+
+
+
   return (
     <div className="App">
+      {/* {recipes} */}
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
