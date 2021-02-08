@@ -1,6 +1,6 @@
-import logo from './logo.svg';
-import './App.css';
-import db from "./sevices/firebase";
+// import logo from './logo.svg';
+import '../App.css';
+import db from "../services/firebase";
 import React, {useState, useEffect} from "react";
 import Navbar from './Navbar';
 // const Navbar = require("./components/Navbar")
