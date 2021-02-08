@@ -1,4 +1,4 @@
-import firebase from "./sevices/firebase";
+import firebase from "../services/firebase";
 import React, {useState, useEffect} from "react";
 
 function Navbar() { 
