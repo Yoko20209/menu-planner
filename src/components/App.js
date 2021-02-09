@@ -19,9 +19,9 @@ function App() {
       data.push({[childKey]: childData})
     })
     setRecipes(data);
-    console.log(data);
+    // console.log(data);
   })
-  
+ 
   },[])
 
 
@@ -29,7 +29,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      {currentView === "AllRecipes" ? <AllRecipes /> 
+      {currentView === "AllRecipes" ? <AllRecipes recipes={recipes}/> 
       : currentView === "SingleRecipe" ? <SingleRecipe /> 
       : <SelectedRecipes />}
       {/* <header className="App-header">
