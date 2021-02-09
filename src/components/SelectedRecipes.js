@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from "react";
-function AllRecipes() { 
+function SelectedRecipes() { 
     useEffect(() => {
     },[]) 
   
     return (
-      <div className="AllRecipes">AllRecipes
+      <div className="SelectedRecipes">SelectedRecipes
         
       </div>
     );
 }
   
-export default AllRecipes;
+export default SelectedRecipes;
