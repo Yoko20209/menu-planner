@@ -52,3 +52,17 @@ div {
   padding: 10px;
   display: inline-block;
 }
+
+.NewRecipe {
+  max-width: 600px;
+  display: inline-block;
+  padding: 10px;
+}
+
+.NewRecipe div {
+  border-style: none;
+}
+
+.instructions {
+  margin: 10px 0px;
+}
