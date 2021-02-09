@@ -39,7 +39,7 @@ function App() {
           setCurrentView={setCurrentView} 
           setSingleRecipeView={setSingleRecipeView}/> 
       : currentView === "SingleRecipe" ?
-       <SingleRecipe /> 
+       <SingleRecipe SingleRecipeView={SingleRecipeView}/> 
       : <SelectedRecipes />}
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
