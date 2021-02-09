@@ -9,6 +9,11 @@ import SingleRecipe from './SingleRecipe';
 function App() {
   const [recipes, setRecipes] = useState([]);
   const [currentView, setCurrentView] = useState("AllRecipes");
+  const [SingleRecipeView, setSingleRecipeView] = useState("");
+
+  //functions
+
+
 
   useEffect(() => {
     const data = [];
@@ -20,17 +25,21 @@ function App() {
     })
     setRecipes(data);
     // console.log(data);
-  })
- 
+  }) 
   },[])
 
 
 
   return (
     <div className="App">
-      <Navbar />
-      {currentView === "AllRecipes" ? <AllRecipes recipes={recipes}/> 
-      : currentView === "SingleRecipe" ? <SingleRecipe /> 
+      <Navbar setCurrentView={setCurrentView}/>
+      {currentView === "AllRecipes" ?
+       <AllRecipes 
+          recipes={recipes} 
+          setCurrentView={setCurrentView} 
+          setSingleRecipeView={setSingleRecipeView}/> 
+      : currentView === "SingleRecipe" ?
+       <SingleRecipe /> 
       : <SelectedRecipes />}
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
