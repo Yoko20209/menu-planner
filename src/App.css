@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+article {
+  border-style: solid;
+  border-color: rgb(112, 150, 73);
+}
+
+div {
+  border-style: solid;
+  border-color: rgb(133, 215, 248);
+}
+
+.each_recipe {
+  margin: 20px;
+  display: inline-block;
+}

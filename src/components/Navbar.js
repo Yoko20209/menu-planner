@@ -8,12 +8,13 @@ function Navbar({setCurrentView}) {
     setCurrentView("AllRecipes");
   };
 
-    useEffect(() => {
-    },[]) 
-  
+  function handleSelectedRecipesButton(){
+    setCurrentView("SelectedRecipes")
+  }
+
     return (
       <div className="Navbar">
-        <input type='button' value="Selected Recipes"/>
+        <input type='button' value="Selected Recipes" onClick={handleSelectedRecipesButton}/>
         <input type='button' value="Make New Recipe"/>
         <input type='button' value="Home" onClick={handleHomeButton}/>
       </div>
