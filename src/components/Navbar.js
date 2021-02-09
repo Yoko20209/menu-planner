@@ -1,23 +1,32 @@
-import firebase from "../services/firebase";
-import React, {useState, useEffect} from "react";
+// import firebase from "../services/firebase";
+// import React, {useState, useEffect} from "react";
+// import Button from 'react-bootstrap/Button';
+// import Badge from 'react-bootstrap/Badge';
 
-function Navbar({setCurrentView}) { 
+// function Navbar({setCurrentView, selectedRecipes}) { 
 
-  //function
-  function handleHomeButton(e){
-    setCurrentView("AllRecipes");
-  };
+//   //function
+//   function handleHomeButton(e){
+//     setCurrentView("AllRecipes");
+//   };
 
-    useEffect(() => {
-    },[]) 
+//   function handleSelectedRecipesButton(){
+//     setCurrentView("SelectedRecipes")
+//   }
+
+//     return (
+//       <div className="Navbar">
+//         {/* <input type='button' value="Selected Recipes" onClick={handleSelectedRecipesButton}/> */}
+//         <Button variant="primary" onClick={handleHomeButton}>Home</Button>{' '}
+
+//         <Button variant="outline-success" >Make New Recipe</Button>{' '}
+
+//         <Button variant="outline-info" onClick={handleSelectedRecipesButton}>
+//           Selected Recipes <Badge variant="light">{selectedRecipes.length}</Badge>
+//           <span className="sr-only">selected recipes</span>
+//         </Button>
+//       </div>
+//     );
+// }
   
-    return (
-      <div className="Navbar">
-        <input type='button' value="Selected Recipes"/>
-        <input type='button' value="Make New Recipe"/>
-        <input type='button' value="Home" onClick={handleHomeButton}/>
-      </div>
-    );
-}
-  
-export default Navbar;
+// export default Navbar;

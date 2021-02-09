@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from "react";
 import db from "../services/firebase";
 
-function SingleRecipe({SingleRecipeView}) { 
+function SingleRecipe({singleRecipeView, selectedRecipes, setSelectedRecipes }) { 
     const [recipe, setRecipe] = useState();
+
     useEffect(() => {
-        db.ref("recipes/" + SingleRecipeView).once('value',function(snapshot){
+        db.ref("recipes/" + singleRecipeView).once('value',function(snapshot){
             const recipeData = snapshot.exportVal();
 
             const recipe = [
-                <h2 id="recipe_name" key="recipe_name">{SingleRecipeView}</h2>,
+                <h2 id="recipe_name" key="recipe_name">{singleRecipeView}</h2>,
                 <p key="cook_time">Cook Time: {recipeData["cook time"]} min.</p>,
                 <p key="servings">Servings : {recipeData["servings"]} people</p>,<h3 key="ingredients">Ingredients</h3>
             ];
@@ -25,9 +26,16 @@ function SingleRecipe({SingleRecipeView}) {
             setRecipe(recipe);
         });
     },[]) 
+
+    //functions
+    function handleSelectRecipe(){
+        //TODO need to save it in DB to make it really work
+        setSelectedRecipes(selectedRecipes.concat([singleRecipeView]));
+    }
   
     return (
       <div className="SingleRecipe">SingleRecipe
+      <input type="button" onClick={handleSelectRecipe} value="Save this recipe"></input>
         {recipe}
       </div>
     );
