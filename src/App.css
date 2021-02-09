@@ -66,3 +66,9 @@ div {
 .instructions {
   margin: 10px 0px;
 }
+
+#food_select {
+  border-style: solid;
+  border-radius: 6px;
+  margin: 10px 0px;
+}

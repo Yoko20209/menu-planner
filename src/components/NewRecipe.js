@@ -9,9 +9,18 @@ import Button from "react-bootstrap/Button";
 import Dropdown  from "react-bootstrap/Dropdown";
 import DropdownButton  from "react-bootstrap/DropdownButton";
 
+import Select from "react-select";
+import CreatableSelect from 'react-select/creatable';
+
 
 function NewRecipe(){
-    const []
+    const [ingredients, setIngredients] = useState([]);
+    const [ingredientsInputed, setIngredientsInputed] = useState("Enter the Number of Ingredients");
+    const food =[
+        { value: 'chocolate', label: 'Chocolate' },
+        { value: 'strawberry', label: 'Strawberry' },
+        { value: 'vanilla', label: 'Vanilla' }
+    ];
 
     const [stepsTag, setStepsTag] = useState([
         <InputGroup className="instructions" key="step1">
@@ -40,55 +49,42 @@ function NewRecipe(){
                     </InputGroup.Append>
                 </InputGroup>
             </Col>
-            <Col md>
-                <InputGroup className="ingredients" key="ingredient2">
-                    <FormControl
-                        placeholder="Ingredient"
-                        aria-label="Ingredient"
-                        controlId="ingredient2"
-                    />
-                    <InputGroup.Append>
-                        <InputGroup.Text id="ingredient">1</InputGroup.Text>
-                    </InputGroup.Append>
-                </InputGroup>
-            </Col>
-            <Col md>
-                <InputGroup className="ingredients" key="ingredient3">
-                    <FormControl
-                        placeholder="Ingredient"
-                        aria-label="Ingredient"
-                        controlId="ingredient3"
-                    />
-                    <InputGroup.Append>
-                        <DropdownButton id="numOfIngredient" title="1" nemuRole="menu">
-                            <Dropdown.Item >1</Dropdown.Item>
-                            <Dropdown.Item  onClick={(e) =>{changeValue(e)}}>2</Dropdown.Item>
-                            <Dropdown.Item >3</Dropdown.Item>
-                        </DropdownButton>
-                        {/* <DropdownButton variant="outline-secondary"
-                        <InputGroup.Text id="ingredient">1</InputGroup.Text> */}
-                    </InputGroup.Append>
-                </InputGroup>
-            </Col>
         </Row>
     ])
 
-
-    function handleAddIngredientsButton(){
-        const newIngredients = ingredientsTag.concat(
-            <InputGroup className="ingredients" key={"ingredient" + ingredientsTag.length + 1}>
-                <FormControl
-                    placeholder="Ingredient"
-                    aria-label="Ingredient"
-                    controlId={"ingredient" + ingredientsTag.length + 1}
-                />
-                <InputGroup.Append>
-                    <InputGroup.Text id="ingredient">{ingredientsTag.length + 1}</InputGroup.Text>
-                </InputGroup.Append>
-            </InputGroup>
-        );
-        setIngredientsTag(newIngredients);
+    function handleFoodChange(newValue, actionMeta){
+        // console.group('Value Changed A');
+        // console.log(newValue);
+        // console.log(`action A: ${actionMeta.action}`);
+        // console.groupEnd();
+        if (actionMeta.action === "select-option"){
+            console.log("SSSSSSSS",newValue[0].value)
+            const newingredients = ingredients.concat(newValue[newValue.length - 1].value);
+            setIngredients(newingredients);
+        }
+    };
+    function toggleIngredientsInputed(){
+        if(ingredientsInputed === "Enter the Number of Ingredients"){
+            return setIngredientsInputed("Go Back to Inputing Ingredients");
+        } 
+        return setIngredientsInputed("Enter the Number of Ingredients");
     }
+
+
+    // function handleIngredientsNumberButton(){
+    //     // const newIngredients =
+    //     <InputGroup className="ingredients" key={"ingredient" + ingredientsTag.length + 1}>
+    //         <InputGroup.Prepend>
+    //             <InputGroup.Text id="ingredient">{ingredientsTag.length + 1}</InputGroup.Text>
+    //         </InputGroup.Prepend>
+    //         <FormControl
+    //             placeholder="ingredient"
+    //             aria-label="ingredient"
+    //             controlId={"ingredient" + ingredientsTag.length + 1}
+    //         />
+    //     </InputGroup>
+    //     // setIngredientsTag(newIngredients);
+    // }
 
 
     function handleAddStepButton(){
@@ -125,6 +121,7 @@ function NewRecipe(){
         }
     }
 
+
     return (
     <div className="NewRecipe">
         <Form onSubmit={handleSubmit}>
@@ -155,15 +152,23 @@ function NewRecipe(){
                     </Form.Group>
                 </Col>
             </Row>
-
-        {ingredientsTag}
-            <br></br>
-            <Button variant="info" onClick={handleAddIngredientsButton}>
-            Add More Ingredients
-            </Button>
+            {ingredientsInputed === "Enter the Number of Ingredients"?
+                <CreatableSelect
+                    id="food_select"
+                    isMulti
+                    isClearable
+                    onChange={handleFoodChange}
+                    options={food}
+                    placeholder="Select Ingredients"
+                />
+    
+            :<h1>hee</h1>}
+                <Button variant="info" onClick={toggleIngredientsInputed}>
+                    {ingredientsInputed}
+                </Button><br></br><br></br>
+        {/* {ingredientsTag} */}
 
         {stepsTag}
-            <br></br>
 
             <Button variant="info" onClick={handleAddStepButton}>
             Add a Step 
