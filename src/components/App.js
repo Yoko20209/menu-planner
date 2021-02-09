@@ -2,28 +2,45 @@ import '../App.css';
 import db from "../services/firebase";
 import React, {useState, useEffect} from "react";
 import Navbar from './Navbar';
+import AllRecipes from './AllRecipes'
+import SelectedRecipes from './SelectedRecipes';
+import SingleRecipe from './SingleRecipe';
 
 function App() {
   const [recipes, setRecipes] = useState([]);
+  const [currentView, setCurrentView] = useState("AllRecipes");
+  const [SingleRecipeView, setSingleRecipeView] = useState("");
+
+  //functions
+
+
 
   useEffect(() => {
-  const data = db.ref("recipes").once('value',function(snapshot){
+    const data = [];
+  db.ref("recipes").once('value',function(snapshot){
     snapshot.forEach((childSnapshot) => {
       const childKey = childSnapshot.key;
       const childData = childSnapshot.val();
-      console.log("key", childKey, "data", childData);
+      data.push({[childKey]: childData})
     })
-  })
-    // setRecipes(data);
-    // console.log(data.child);
-  
+    setRecipes(data);
+    // console.log(data);
+  }) 
   },[])
 
 
 
   return (
     <div className="App">
-      <Navbar />
+      <Navbar setCurrentView={setCurrentView}/>
+      {currentView === "AllRecipes" ?
+       <AllRecipes 
+          recipes={recipes} 
+          setCurrentView={setCurrentView} 
+          setSingleRecipeView={setSingleRecipeView}/> 
+      : currentView === "SingleRecipe" ?
+       <SingleRecipe /> 
+      : <SelectedRecipes />}
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
