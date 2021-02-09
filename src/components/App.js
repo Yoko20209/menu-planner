@@ -46,7 +46,9 @@ function App() {
           setSelectedRecipes={setSelectedRecipes}/> 
       : <SelectedRecipes 
           selectedRecipes={selectedRecipes}
-          setSelectedRecipes={setSelectedRecipes}/>}
+          setSelectedRecipes={setSelectedRecipes}
+          setSingleRecipeView={setSingleRecipeView}
+          setCurrentView={setCurrentView}/>}
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
