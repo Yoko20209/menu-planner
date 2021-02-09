@@ -9,7 +9,8 @@ import SingleRecipe from './SingleRecipe';
 function App() {
   const [recipes, setRecipes] = useState([]);
   const [currentView, setCurrentView] = useState("AllRecipes");
-  const [SingleRecipeView, setSingleRecipeView] = useState("");
+  const [singleRecipeView, setSingleRecipeView] = useState("");
+  const [selectedRecipes, setSelectedRecipes] = useState([]);
 
   //functions
 
@@ -39,7 +40,10 @@ function App() {
           setCurrentView={setCurrentView} 
           setSingleRecipeView={setSingleRecipeView}/> 
       : currentView === "SingleRecipe" ?
-       <SingleRecipe SingleRecipeView={SingleRecipeView}/> 
+       <SingleRecipe 
+          singleRecipeView={singleRecipeView}
+          selectedRecipes={selectedRecipes}
+          setSelectedRecipes={setSelectedRecipes}/> 
       : <SelectedRecipes />}
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
