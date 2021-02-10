@@ -19,6 +19,7 @@ function App() {
   const [currentView, setCurrentView] = useState("AllRecipes");
   const [singleRecipeView, setSingleRecipeView] = useState("");
   const [selectedRecipes, setSelectedRecipes] = useState([]);
+  const [addedRecipe, setAddedRecipe] = useState(false);
 
   //functions
 
@@ -35,9 +36,22 @@ function App() {
       data.push({[childKey]: childData})
     })
     setRecipes(data);
-    // console.log(data);
   }) 
   },[])
+
+  useEffect(() => {
+    if(!addedRecipe) return;
+    const data = [];
+  db.ref("recipes").once('value',function(snapshot){
+    snapshot.forEach((childSnapshot) => {
+      const childKey = childSnapshot.key;
+      const childData = childSnapshot.val();
+      data.push({[childKey]: childData})
+    })
+    setRecipes(data);
+  }) 
+  setAddedRecipe(false);
+  },[addedRecipe])
 
 
 
@@ -83,7 +97,7 @@ function App() {
           setSelectedRecipes={setSelectedRecipes}
           setSingleRecipeView={setSingleRecipeView}
           setCurrentView={setCurrentView}/>
-      : <NewRecipe />}
+      : <NewRecipe setAddedRecipe={setAddedRecipe}/>}
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

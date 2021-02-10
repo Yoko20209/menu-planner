@@ -11,7 +11,7 @@ import Button from "react-bootstrap/Button";
 import CreatableSelect from 'react-select/creatable';
 
 
-function NewRecipe(){
+function NewRecipe({setAddedRecipe}){
     const [ingredients, setIngredients] = useState([]);
     const [inputButtonText, setInputButtonText] = useState("Enter the Number of Ingredients");
     const [submited, setSubmited] = useState(false);
@@ -122,6 +122,7 @@ function NewRecipe(){
         }
         db.ref("recipes/" + e["MenuNameText"].value).set(newRecipe);
         setSubmited(true);
+        setAddedRecipe(true);
     }
 
     if(submited) return(
