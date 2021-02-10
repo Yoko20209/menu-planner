@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import db from "../services/firebase";
 
 import Form from "react-bootstrap/Form";
@@ -52,7 +52,6 @@ function NewRecipe(){
 
     function toggleIngredientsInputed(){
         if(inputButtonText === "Enter the Number of Ingredients"){
-            console.log("ingredients",ingredients);
             const newIngredientsNumTag = [];
 
             for (let i = 0; i < ingredients.length; i++){
