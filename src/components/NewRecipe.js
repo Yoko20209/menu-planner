@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import db from "../services/firebase";
 
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -6,16 +7,15 @@ import Col from "react-bootstrap/Col";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
-import Dropdown  from "react-bootstrap/Dropdown";
-import DropdownButton  from "react-bootstrap/DropdownButton";
 
-import Select from "react-select";
 import CreatableSelect from 'react-select/creatable';
 
 
 function NewRecipe(){
     const [ingredients, setIngredients] = useState([]);
     const [inputButtonText, setInputButtonText] = useState("Enter the Number of Ingredients");
+    const [submited, setSubmited] = useState(false);
+
     const food =[
         { value: 'chocolate', label: 'Chocolate' },
         { value: 'strawberry', label: 'Strawberry' },
@@ -57,19 +57,18 @@ function NewRecipe(){
 
             for (let i = 0; i < ingredients.length; i++){
                 newIngredientsNumTag.push(
-                    <InputGroup className="ingredient" key={"ingredientsA" + i } >
+                    <InputGroup className="ingredient" key={"ingredients" + i } >
                         <InputGroup.Prepend>
                             <InputGroup.Text id="ingredient">{ingredients[i]}</InputGroup.Text>
                         </InputGroup.Prepend>
                         <FormControl
                             placeholder="Amount"
                             aria-label={ingredients[i]}
-                            id={"ingredientsD" + i }
+                            id={"ingredients" + i }
                         />
                     </InputGroup>
                 )
             }
-            console.log("hh",newIngredientsNumTag)
             setIngredientsNumTag(newIngredientsNumTag);
 
             return setInputButtonText("Go Back to Inputing Ingredients");
@@ -103,24 +102,36 @@ function NewRecipe(){
     function handleSubmit(event){
         event.preventDefault();
         const e = event.target
-        // console.log(e);
-        const ingredientsData = {...event.target};
+
+        const ingredientsData = {};
+        for (let i = 0; i < ingredients.length; i++){
+            ingredientsData[ingredients[i]] = parseInt(e["ingredients" + i].value);
+        }
+
+        const stepsData = {};
+        for (let i = 0; i < stepsTag.length; i++){
+            stepsData[i+1] = e["step" + (i+1)].value;
+        }
         
-        console.log(event.target[1].id)
-        // for (let i = 0; i < ingredients.length; i++){
-        //     ingredientsData[ingredients[i]] = e["ingredient" + i].value
-        // }
-        console.log("ingredientsData", ingredientsData);
         const newRecipe = {
             "name":e["MenuNameText"].value,
-            "cook time":e["CookTimeInt"].value,
-            "ServingsInt":e["ServingsInt"].value,
-            // "Ingredients": ingredientsData,
-            // "ServingsInt":e["ServingsInt"].value,
+            "cook time":parseInt(e["CookTimeInt"].value),
+            "servings":parseInt(e["ServingsInt"].value),
+            "ingredients": ingredientsData,
+            "instructions":stepsData,
+            "comment": e["CommentsTextArea"].value
         }
-        // console.log("newRecipe",newRecipe);
+        db.ref("recipes/" + e["MenuNameText"].value).set(newRecipe);
+        setSubmited(true);
     }
 
+    if(submited) return(
+        <><h1 id="submited">Submited!</h1>
+            <Button variant="info" onClick={()=>{setSubmited(false)}}>
+            Make another recipe
+            </Button>
+        </>
+    )
 
     return (
     <div className="NewRecipe">
