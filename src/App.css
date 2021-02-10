@@ -52,3 +52,27 @@ div {
   padding: 10px;
   display: inline-block;
 }
+
+.NewRecipe {
+  max-width: 600px;
+  display: inline-block;
+  padding: 10px;
+}
+
+.NewRecipe div {
+  border-style: none;
+}
+
+.instructions {
+  margin: 10px 0px;
+}
+
+#food_select {
+  border-style: solid;
+  border-radius: 6px;
+  margin: 10px 0px;
+}
+
+.ingredient {
+  margin: 10px 0px;
+}
