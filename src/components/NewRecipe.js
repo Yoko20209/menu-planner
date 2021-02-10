@@ -15,12 +15,14 @@ import CreatableSelect from 'react-select/creatable';
 
 function NewRecipe(){
     const [ingredients, setIngredients] = useState([]);
-    const [ingredientsInputed, setIngredientsInputed] = useState("Enter the Number of Ingredients");
+    const [inputButtonText, setInputButtonText] = useState("Enter the Number of Ingredients");
     const food =[
         { value: 'chocolate', label: 'Chocolate' },
         { value: 'strawberry', label: 'Strawberry' },
         { value: 'vanilla', label: 'Vanilla' }
     ];
+
+    const [ingredientsNumTag, setIngredientsNumTag] = useState([]);
 
     const [stepsTag, setStepsTag] = useState([
         <InputGroup className="instructions" key="step1">
@@ -30,73 +32,63 @@ function NewRecipe(){
             <FormControl
                 placeholder="Step"
                 aria-label="Step"
-                controlId={"step1"}
+                id={"step1"}
             />
         </InputGroup>
     ])
 
-    const [ingredientsTag, setIngredientsTag] = useState([
-        <Row>
-            <Col md>
-                <InputGroup className="ingredients" key="ingredient1">
-                    <FormControl
-                        placeholder="Ingredient"
-                        aria-label="Ingredient"
-                        controlId="ingredient1"
-                    />
-                    <InputGroup.Append>
-                        <InputGroup.Text id="ingredient">1</InputGroup.Text>
-                    </InputGroup.Append>
-                </InputGroup>
-            </Col>
-        </Row>
-    ])
 
     function handleFoodChange(newValue, actionMeta){
         // console.group('Value Changed A');
         // console.log(newValue);
         // console.log(`action A: ${actionMeta.action}`);
         // console.groupEnd();
-        if (actionMeta.action === "select-option"){
-            console.log("SSSSSSSS",newValue[0].value)
+        if (actionMeta.action === "select-option" || actionMeta.action === "create-option"){
             const newingredients = ingredients.concat(newValue[newValue.length - 1].value);
             setIngredients(newingredients);
         }
     };
+
+
     function toggleIngredientsInputed(){
-        if(ingredientsInputed === "Enter the Number of Ingredients"){
-            return setIngredientsInputed("Go Back to Inputing Ingredients");
+        if(inputButtonText === "Enter the Number of Ingredients"){
+            console.log("ingredients",ingredients);
+            const newIngredientsNumTag = [];
+
+            for (let i = 0; i < ingredients.length; i++){
+                newIngredientsNumTag.push(
+                    <InputGroup className="ingredient" key={"ingredientsA" + i } >
+                        <InputGroup.Prepend>
+                            <InputGroup.Text id="ingredient">{ingredients[i]}</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <FormControl
+                            placeholder="Amount"
+                            aria-label={ingredients[i]}
+                            id={"ingredientsD" + i }
+                        />
+                    </InputGroup>
+                )
+            }
+            console.log("hh",newIngredientsNumTag)
+            setIngredientsNumTag(newIngredientsNumTag);
+
+            return setInputButtonText("Go Back to Inputing Ingredients");
         } 
-        return setIngredientsInputed("Enter the Number of Ingredients");
+        return setInputButtonText("Enter the Number of Ingredients");
     }
 
-
-    // function handleIngredientsNumberButton(){
-    //     // const newIngredients =
-    //     <InputGroup className="ingredients" key={"ingredient" + ingredientsTag.length + 1}>
-    //         <InputGroup.Prepend>
-    //             <InputGroup.Text id="ingredient">{ingredientsTag.length + 1}</InputGroup.Text>
-    //         </InputGroup.Prepend>
-    //         <FormControl
-    //             placeholder="ingredient"
-    //             aria-label="ingredient"
-    //             controlId={"ingredient" + ingredientsTag.length + 1}
-    //         />
-    //     </InputGroup>
-    //     // setIngredientsTag(newIngredients);
-    // }
 
 
     function handleAddStepButton(){
         const newStepsTag = stepsTag.concat(
-            <InputGroup className="instructions" key={"step" + stepsTag.length + 1}>
+            <InputGroup className="instructions" key={"step" + (stepsTag.length + 1)}>
                 <InputGroup.Prepend>
                     <InputGroup.Text id="step">{stepsTag.length + 1}</InputGroup.Text>
                 </InputGroup.Prepend>
                 <FormControl
                     placeholder="Step"
                     aria-label="Step"
-                    controlId={"step" + stepsTag.length + 1}
+                    id={"step" + (stepsTag.length + 1)}
                 />
             </InputGroup>
         );
@@ -111,14 +103,22 @@ function NewRecipe(){
     function handleSubmit(event){
         event.preventDefault();
         const e = event.target
-        console.log(e["MenuNameText"].value)
+        // console.log(e);
+        const ingredientsData = {...event.target};
+        
+        console.log(event.target[1].id)
+        // for (let i = 0; i < ingredients.length; i++){
+        //     ingredientsData[ingredients[i]] = e["ingredient" + i].value
+        // }
+        console.log("ingredientsData", ingredientsData);
         const newRecipe = {
             "name":e["MenuNameText"].value,
             "cook time":e["CookTimeInt"].value,
             "ServingsInt":e["ServingsInt"].value,
-            // "ServingsInt":e["ServingsInt"].value,
+            // "Ingredients": ingredientsData,
             // "ServingsInt":e["ServingsInt"].value,
         }
+        // console.log("newRecipe",newRecipe);
     }
 
 
@@ -152,7 +152,7 @@ function NewRecipe(){
                     </Form.Group>
                 </Col>
             </Row>
-            {ingredientsInputed === "Enter the Number of Ingredients"?
+            {inputButtonText === "Enter the Number of Ingredients"?
                 <CreatableSelect
                     id="food_select"
                     isMulti
@@ -162,11 +162,12 @@ function NewRecipe(){
                     placeholder="Select Ingredients"
                 />
     
-            :<h1>hee</h1>}
+            : ingredientsNumTag }
+
+
                 <Button variant="info" onClick={toggleIngredientsInputed}>
-                    {ingredientsInputed}
+                    {inputButtonText}
                 </Button><br></br><br></br>
-        {/* {ingredientsTag} */}
 
         {stepsTag}
 
