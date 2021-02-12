@@ -43,9 +43,11 @@ function NewRecipe({setAddedRecipe}){
         // console.log(newValue);
         // console.log(`action A: ${actionMeta.action}`);
         // console.groupEnd();
-        if (actionMeta.action === "select-option" || actionMeta.action === "create-option"){
-            const newingredients = ingredients.concat(newValue[newValue.length - 1].value);
-            setIngredients(newingredients);
+        if (actionMeta.action === "select-option" 
+            || actionMeta.action === "create-option" 
+            || actionMeta.action === "remove-value"){
+            setIngredients(newValue);
+            return;
         }
     };
 
@@ -58,11 +60,11 @@ function NewRecipe({setAddedRecipe}){
                 newIngredientsNumTag.push(
                     <InputGroup className="ingredient" key={"ingredients" + i } >
                         <InputGroup.Prepend>
-                            <InputGroup.Text id="ingredient">{ingredients[i]}</InputGroup.Text>
+                            <InputGroup.Text id="ingredient">{ingredients[i].value}</InputGroup.Text>
                         </InputGroup.Prepend>
                         <FormControl
                             placeholder="Amount"
-                            aria-label={ingredients[i]}
+                            aria-label={ingredients[i].value}
                             id={"ingredients" + i }
                         />
                     </InputGroup>
@@ -165,6 +167,7 @@ function NewRecipe({setAddedRecipe}){
             </Row>
             {inputButtonText === "Enter the Number of Ingredients"?
                 <CreatableSelect
+                    defaultValue={ingredients}
                     id="food_select"
                     isMulti
                     isClearable
