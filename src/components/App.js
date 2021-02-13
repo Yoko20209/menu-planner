@@ -13,6 +13,7 @@ import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
+import NavDropdown from "react-bootstrap/NavDropdown"
 
 function App() {
   const [recipes, setRecipes] = useState([]);
@@ -54,31 +55,66 @@ function App() {
   },[addedRecipe])
 
 
+function menuClicked(){
+  console.log("clicked")
+}
 
   return (
     <div className="App">
-      {/* <Navbar 
-          setCurrentView={setCurrentView}
-          selectedRecipes={selectedRecipes}/> */}
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="dark" variant="dark" id="navbar">
 
         <Navbar.Brand href="#home">Menu Planner</Navbar.Brand>
 
         <Nav className="mr-auto"  onSelect={(key)=>{setCurrentView(key)}}>
-          <Nav.Link eventKey="AllRecipes">Home</Nav.Link>
-          <Nav.Link eventKey="NewRecipes">Make new recipe</Nav.Link>
+          <Nav.Link eventKey="AllRecipes" id="all_recipes">All recipes</Nav.Link>
+          <Nav.Link eventKey="NewRecipes" id="make_new_recipe">Make new recipe</Nav.Link>
         </Nav>  
 
-        <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+        <Form inline="true" className="search_bar">
+          <FormControl type="text" placeholder="Search" />
           <Button variant="outline-info">Search</Button>
         </Form> 
 
-        <Button variant="outline-info" onClick={handleSelectedRecipesButton}>
-          Selected Recipes <Badge variant="light">{selectedRecipes.length}</Badge>
-          <span className="sr-only">selected recipes</span>
+        <Button 
+          variant="outline-info" 
+          onClick={handleSelectedRecipesButton} 
+          id="selected_recipes_button">Selected Recipes
+          <Badge variant="light" id="selected_recipes_badge">{selectedRecipes.length}</Badge>
+          {/* <span className="sr-only">selected recipes</span> */}
         </Button>
 
+        <NavDropdown title="" id="basic-nav-dropdown" className="icon" alignRight="true">
+          <NavDropdown.ItemText id="dropdown_search">
+            <Form >
+              <FormControl type="text" placeholder="Search" id="drop_search_bar"/>
+              <Button variant="outline-info">Search</Button>
+            </Form> 
+          </NavDropdown.ItemText>
+            
+          <NavDropdown.Item  eventKey="NewRecipes"
+              id="dropdown_make_new_recipe" 
+              onSelect={(key)=>{setCurrentView(key)}} >Make new recipe
+            {/* <Nav.Link 
+              eventKey="NewRecipes"
+              id="dropdown_make_new_recipe" 
+              onSelect={(key)=>{setCurrentView(key)}} 
+              >Make new recipe
+            </Nav.Link> */}
+            </NavDropdown.Item>
+
+          <NavDropdown.Item href="#action/3.3" 
+            onClick={handleSelectedRecipesButton}
+            id="dropdown_selected_recipes">Selected Recipes
+            <Badge variant="light">{selectedRecipes.length}</Badge>
+          </NavDropdown.Item>
+
+          <NavDropdown.Item href="#action/3.3" 
+            eventKey="AllRecipes"
+            onSelect={(key)=>{setCurrentView(key)}}
+            id="dropdown_all_recipes">
+              All recipes
+          </NavDropdown.Item>
+        </NavDropdown>
       </Navbar>
 
       {currentView === "AllRecipes" ?

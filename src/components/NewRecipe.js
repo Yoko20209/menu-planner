@@ -106,7 +106,7 @@ function NewRecipe({setAddedRecipe}){
 
         const ingredientsData = {};
         for (let i = 0; i < ingredients.length; i++){
-            ingredientsData[ingredients[i]] = parseInt(e["ingredients" + i].value);
+            ingredientsData[ingredients[i].value] = parseInt(e["ingredients" + i].value);
         }
 
         const stepsData = {};
