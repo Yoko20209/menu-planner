@@ -5,7 +5,8 @@ import React, {useState, useEffect} from "react";
 import AllRecipes from './AllRecipes'
 import SelectedRecipes from './SelectedRecipes';
 import SingleRecipe from './SingleRecipe';
-import NewRecipe from './NewRecipe'
+import NewRecipe from './NewRecipe';
+import SearchResult from './SearchResult';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from "react-bootstrap/Nav";
@@ -26,6 +27,12 @@ function App() {
 
   function handleSelectedRecipesButton(){
     setCurrentView("SelectedRecipes")
+  }
+
+  function handleSearchButton(event){
+    event.preventDefault();
+    console.log(event.target[0].value);
+    setCurrentView("SearchResult");
   }
 
   useEffect(() => {
@@ -54,13 +61,12 @@ function App() {
   setAddedRecipe(false);
   },[addedRecipe])
 
-
-function menuClicked(){
-  console.log("clicked")
-}
+const [test, setTest] = useState("true")
 
   return (
     <div className="App">
+      <h1>test</h1>
+      {test}
       <Navbar bg="dark" variant="dark" id="navbar">
 
         <Navbar.Brand href="#home">Menu Planner</Navbar.Brand>
@@ -70,9 +76,9 @@ function menuClicked(){
           <Nav.Link eventKey="NewRecipes" id="make_new_recipe">Make new recipe</Nav.Link>
         </Nav>  
 
-        <Form inline="true" className="search_bar">
-          <FormControl type="text" placeholder="Search" />
-          <Button variant="outline-info">Search</Button>
+        <Form inline="true" className="search_bar" onSubmit={handleSearchButton}>
+          <FormControl type="text" placeholder="Search by menu name" />
+          <Button variant="outline-info" type="submit">Search</Button>
         </Form> 
 
         <Button 
@@ -83,11 +89,11 @@ function menuClicked(){
           {/* <span className="sr-only">selected recipes</span> */}
         </Button>
 
-        <NavDropdown title="" id="basic-nav-dropdown" className="icon" alignRight="true">
+        <NavDropdown title="" id="basic-nav-dropdown" className="icon" alignRight={true}>
           <NavDropdown.ItemText id="dropdown_search">
-            <Form >
-              <FormControl type="text" placeholder="Search" id="drop_search_bar"/>
-              <Button variant="outline-info">Search</Button>
+            <Form onSubmit={handleSearchButton}>
+              <FormControl type="text" placeholder="Menu name" id="drop_search_bar"/>
+              <Button variant="outline-info" type="submit">Search</Button>
             </Form> 
           </NavDropdown.ItemText>
             
@@ -116,6 +122,7 @@ function menuClicked(){
           </NavDropdown.Item>
         </NavDropdown>
       </Navbar>
+      
 
       {currentView === "AllRecipes" ?
        <AllRecipes 
@@ -133,7 +140,9 @@ function menuClicked(){
           setSelectedRecipes={setSelectedRecipes}
           setSingleRecipeView={setSingleRecipeView}
           setCurrentView={setCurrentView}/>
-      : <NewRecipe setAddedRecipe={setAddedRecipe}/>}
+      : currentView === "NewRecipes"?
+        <NewRecipe setAddedRecipe={setAddedRecipe}/>
+      :<SearchResult/>}
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

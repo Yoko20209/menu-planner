@@ -183,7 +183,7 @@ function NewRecipe({setAddedRecipe}){
                     {inputButtonText}
                 </Button><br></br><br></br>
 
-        {stepsTag}
+            {stepsTag}
 
             <Button variant="info" onClick={handleAddStepButton}>
             Add a Step 
