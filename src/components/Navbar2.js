@@ -6,23 +6,16 @@ import Badge from 'react-bootstrap/Badge';
 function Navbar2(){
     
 const [number, setNumber] = useState();
-const [button, setButton] = useState("false");
 
-// const makeArray = (num) => {
-//     console.log("number")
-//     return [num, num, num];
-// }
 
    const makeArray = useCallback(
       (num) => {
-          console.log("num")
         return [num, num, num];
       },
       [number]
     );
     
 const numberArr = makeArray(number);
-  //function
     return (
       <div className="Navbar">
                <input

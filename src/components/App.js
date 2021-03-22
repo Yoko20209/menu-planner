@@ -31,7 +31,6 @@ function App() {
 
   function handleSearchButton(event){
     event.preventDefault();
-    console.log(event.target[0].value);
     setCurrentView("SearchResult");
   }
 

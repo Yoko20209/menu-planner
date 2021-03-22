@@ -39,10 +39,6 @@ function NewRecipe({setAddedRecipe}){
 
 
     function handleFoodChange(newValue, actionMeta){
-        // console.group('Value Changed A');
-        // console.log(newValue);
-        // console.log(`action A: ${actionMeta.action}`);
-        // console.groupEnd();
         if (actionMeta.action === "select-option" 
             || actionMeta.action === "create-option" 
             || actionMeta.action === "remove-value"){

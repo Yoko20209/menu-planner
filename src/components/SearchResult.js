@@ -15,22 +15,15 @@ function SearchResult() {
   
     const makeArray = useCallback(
       (num) => {
-          console.log("num")
         return [num, num, num];
       },
       [number]
     );
-
-    // const makeArray = (num) => {
-    //     console.log("number")
-    //     return [num, num, num];
-    // }
     
     const numberArr = makeArray(number);
   
     return (
       <>
-      {/* <Navbar2 /> */}
       <div className="Navbar">
                <input
           type="text"
@@ -45,7 +38,6 @@ function SearchResult() {
   
         <button
           onClick={() => {
-              console.log("buttonT")
             return setButton("true");
           }}
         >
@@ -53,7 +45,6 @@ function SearchResult() {
         </button>
         <button
           onClick={() => {
-            console.log("buttonF")
             return setButton("false");
           }}
         >
