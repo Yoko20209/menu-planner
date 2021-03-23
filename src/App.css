@@ -2,44 +2,21 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.mr-auto * {
+  padding: 5px !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#save-button {
+  border: solid;
+  border-radius: 5px;
+  position: fixed;
+  right: 10px;
+  margin: 8px;
 }
 
 article {
   border-style: solid;
-  border-color: rgb(112, 150, 73);
+  border-color: rgb(126, 177, 75);
 }
 
 div {
@@ -51,6 +28,9 @@ div {
   margin: 20px;
   padding: 10px;
   display: inline-block;
+  cursor: pointer;
+  border-radius: 8px;
+  min-width: 300px;
 }
 
 .NewRecipe {
@@ -75,4 +55,97 @@ div {
 
 .ingredient {
   margin: 10px 0px;
+}
+
+#navbar * {
+  margin-left: 0px 8px;
+  white-space: nowrap;
+}
+
+.search_bar * {
+  margin-right: 8px;
+}
+
+#navbar .icon {
+  display: none;
+}
+
+#drop_search_bar :hover {
+  cursor: text !important;
+}
+
+#dropdown_search {
+  display: none !important;
+}
+#dropdown_all_recipes {
+  display: none !important;
+}
+#dropdown_selected_recipes {
+  display: none;
+}
+
+#selected_recipes_badge {
+  margin-left: 4px;
+}
+@media screen and (max-width: 875px) {
+  #make_new_recipe {
+    display: none;
+  }
+  #navbar .icon {
+    float: right;
+    display: inline-flex;
+    border-width: 1px;
+    border-color: #007bff;
+    border-radius: 5px;
+    margin: 0px -8px 0px 8px;
+  }
+  .icon * {
+    padding: 6px 12px !important;
+  }
+
+  #dropdown_search {
+    padding: 0px !important;
+  }
+
+  .dropdown-menu {
+    padding: 0px !important;
+  }
+}
+
+@media screen and (max-width: 793px) {
+  .search_bar * {
+    display: none !important;
+  }
+  #dropdown_search {
+    display: inherit !important;
+  }
+  #dropdown_make_new_recipe {
+    display: inherit;
+  }
+}
+
+@media screen and (max-width: 485px) {
+  #all_recipes {
+    display: none !important;
+  }
+  .mr-auto {
+    border: none;
+  }
+  #dropdown_all_recipes {
+    display: inherit !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  #save-button {
+    position: inherit;
+  }
+}
+@media screen and (max-width: 377px) {
+  #selected_recipes_button {
+    display: none;
+  }
+  #dropdown_selected_recipes {
+    display: inherit;
+  }
 }

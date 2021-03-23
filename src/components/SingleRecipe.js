@@ -34,8 +34,8 @@ function SingleRecipe({singleRecipeView, selectedRecipes, setSelectedRecipes }) 
     }
   
     return (
-      <div className="SingleRecipe">SingleRecipe
-      <input type="button" onClick={handleSelectRecipe} value="Save this recipe"></input>
+      <div className="SingleRecipe">
+      <input type="button" onClick={handleSelectRecipe} value={"Save this recipe"} id="save-button"></input>
         {recipe}
       </div>
     );

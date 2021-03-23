@@ -11,7 +11,7 @@ import Button from "react-bootstrap/Button";
 import CreatableSelect from 'react-select/creatable';
 
 
-function NewRecipe(){
+function NewRecipe({setAddedRecipe}){
     const [ingredients, setIngredients] = useState([]);
     const [inputButtonText, setInputButtonText] = useState("Enter the Number of Ingredients");
     const [submited, setSubmited] = useState(false);
@@ -39,13 +39,11 @@ function NewRecipe(){
 
 
     function handleFoodChange(newValue, actionMeta){
-        // console.group('Value Changed A');
-        // console.log(newValue);
-        // console.log(`action A: ${actionMeta.action}`);
-        // console.groupEnd();
-        if (actionMeta.action === "select-option" || actionMeta.action === "create-option"){
-            const newingredients = ingredients.concat(newValue[newValue.length - 1].value);
-            setIngredients(newingredients);
+        if (actionMeta.action === "select-option" 
+            || actionMeta.action === "create-option" 
+            || actionMeta.action === "remove-value"){
+            setIngredients(newValue);
+            return;
         }
     };
 
@@ -58,11 +56,11 @@ function NewRecipe(){
                 newIngredientsNumTag.push(
                     <InputGroup className="ingredient" key={"ingredients" + i } >
                         <InputGroup.Prepend>
-                            <InputGroup.Text id="ingredient">{ingredients[i]}</InputGroup.Text>
+                            <InputGroup.Text id="ingredient">{ingredients[i].value}</InputGroup.Text>
                         </InputGroup.Prepend>
                         <FormControl
                             placeholder="Amount"
-                            aria-label={ingredients[i]}
+                            aria-label={ingredients[i].value}
                             id={"ingredients" + i }
                         />
                     </InputGroup>
@@ -104,7 +102,7 @@ function NewRecipe(){
 
         const ingredientsData = {};
         for (let i = 0; i < ingredients.length; i++){
-            ingredientsData[ingredients[i]] = parseInt(e["ingredients" + i].value);
+            ingredientsData[ingredients[i].value] = parseInt(e["ingredients" + i].value);
         }
 
         const stepsData = {};
@@ -122,6 +120,7 @@ function NewRecipe(){
         }
         db.ref("recipes/" + e["MenuNameText"].value).set(newRecipe);
         setSubmited(true);
+        setAddedRecipe(true);
     }
 
     if(submited) return(
@@ -164,6 +163,7 @@ function NewRecipe(){
             </Row>
             {inputButtonText === "Enter the Number of Ingredients"?
                 <CreatableSelect
+                    defaultValue={ingredients}
                     id="food_select"
                     isMulti
                     isClearable
@@ -179,7 +179,7 @@ function NewRecipe(){
                     {inputButtonText}
                 </Button><br></br><br></br>
 
-        {stepsTag}
+            {stepsTag}
 
             <Button variant="info" onClick={handleAddStepButton}>
             Add a Step 

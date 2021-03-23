@@ -23,7 +23,8 @@ function AllRecipes({recipes, setCurrentView, setSingleRecipeView}) {
     },[recipes]) 
   
     return (
-      <div className="AllRecipes">AllRecipes
+      <div className="AllRecipes">
+          AllRecipes<br></br>
         {AllRecipes}
       </div>
     );
