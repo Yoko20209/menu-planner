@@ -1,7 +1,6 @@
 import '../App.css';
 import db from "../services/firebase";
 import React, {useState, useEffect} from "react";
-// import Navbar from './Navbar';
 import AllRecipes from './AllRecipes'
 import SelectedRecipes from './SelectedRecipes';
 import SingleRecipe from './SingleRecipe';
@@ -23,7 +22,6 @@ function App() {
   const [selectedRecipes, setSelectedRecipes] = useState([]);
   const [addedRecipe, setAddedRecipe] = useState(false);
 
-  //functions
 
   function handleSelectedRecipesButton(){
     setCurrentView("SelectedRecipes")
@@ -60,12 +58,9 @@ function App() {
   setAddedRecipe(false);
   },[addedRecipe])
 
-const [test, setTest] = useState("true")
 
   return (
     <div className="App">
-      <h1>test</h1>
-      {test}
       <Navbar bg="dark" variant="dark" id="navbar">
 
         <Navbar.Brand href="#home">Menu Planner</Navbar.Brand>
@@ -85,7 +80,6 @@ const [test, setTest] = useState("true")
           onClick={handleSelectedRecipesButton} 
           id="selected_recipes_button">Selected Recipes
           <Badge variant="light" id="selected_recipes_badge">{selectedRecipes.length}</Badge>
-          {/* <span className="sr-only">selected recipes</span> */}
         </Button>
 
         <NavDropdown title="" id="basic-nav-dropdown" className="icon" alignRight={true}>
@@ -98,14 +92,7 @@ const [test, setTest] = useState("true")
             
           <NavDropdown.Item  eventKey="NewRecipes"
               id="dropdown_make_new_recipe" 
-              onSelect={(key)=>{setCurrentView(key)}} >Make new recipe
-            {/* <Nav.Link 
-              eventKey="NewRecipes"
-              id="dropdown_make_new_recipe" 
-              onSelect={(key)=>{setCurrentView(key)}} 
-              >Make new recipe
-            </Nav.Link> */}
-            </NavDropdown.Item>
+              onSelect={(key)=>{setCurrentView(key)}} >Make new recipe            </NavDropdown.Item>
 
           <NavDropdown.Item href="#action/3.3" 
             onClick={handleSelectedRecipesButton}
@@ -142,20 +129,6 @@ const [test, setTest] = useState("true")
       : currentView === "NewRecipes"?
         <NewRecipe setAddedRecipe={setAddedRecipe}/>
       :<SearchResult/>}
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
     </div>
   );
 }

@@ -91,14 +91,9 @@ function NewRecipe({setAddedRecipe}){
         setStepsTag(newStepsTag);
     }
 
-    // function handleDeleteStepButton(){
-    //     const newSteps = steps.slice(0, -1)
-    //     setSteps(newSteps);
-    // }
-
     function handleSubmit(event){
         event.preventDefault();
-        const e = event.target
+        const e = event.target;
 
         const ingredientsData = {};
         for (let i = 0; i < ingredients.length; i++){
@@ -184,10 +179,6 @@ function NewRecipe({setAddedRecipe}){
             <Button variant="info" onClick={handleAddStepButton}>
             Add a Step 
             </Button><br></br><br></br>
-            {/* <Button variant="info" onClick={handleDeleteStepButton}>
-            Delete a Step 
-            </Button> */}
-
 
             <Form.Group controlId="CommentsTextArea">
                 <Form.Label>Comments</Form.Label>

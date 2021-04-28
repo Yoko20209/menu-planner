@@ -29,7 +29,7 @@ function SingleRecipe({singleRecipeView, selectedRecipes, setSelectedRecipes }) 
 
     //functions
     function handleSelectRecipe(){
-        //TODO need to save it in DB to make it really work
+        //TODO need to save it in DB
         setSelectedRecipes(selectedRecipes.concat([singleRecipeView]));
     }
   
